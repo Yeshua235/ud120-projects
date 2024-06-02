@@ -24,19 +24,32 @@ plt.scatter(grade_slow, bumpy_slow, color = "r", label="slow")
 plt.legend()
 plt.xlabel("bumpiness")
 plt.ylabel("grade")
-plt.show()
+#plt.show()
 ################################################################################
 
 
-### your code here!  name your classifier object clf if you want the 
+### your code here!  name your classifier object clf if you want the
 ### visualization code (prettyPicture) to show you the decision boundary
 
+#<li>k nearest neighbors <li>random forest <li>adaboost
 
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.metrics import accuracy_score
+from time import time
 
+clf = KNeighborsClassifier(n_neighbors=8, algorithm='auto', n_jobs=None)
 
+t0 = time()
+clf.fit(features_train, labels_train)
+print(f'training time: {round(time()-t0, 3)} s')
 
+t0 = time()
+pred = clf.predict(features_test)
+print(f'prediction time: {round(time()-t0, 3)} s')
 
+accuracy = accuracy_score(labels_test, pred)
 
+print(f'accuracy= {accuracy}')
 
 try:
     prettyPicture(clf, features_test, labels_test)
