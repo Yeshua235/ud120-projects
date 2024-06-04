@@ -1,4 +1,4 @@
-pylint: disable=too-many-locals, disable=too-many-branches, disable=too-many-statements,
+pylint: disable=too-many-locals
 #!/usr/bin/python3
 
 """
