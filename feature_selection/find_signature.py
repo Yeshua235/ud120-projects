@@ -3,15 +3,16 @@
 import joblib
 import numpy
 numpy.random.seed(42)
-
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.metrics import accuracy_score
 
 ### The words (features) and authors (labels), already largely processed.
 ### These files should have been created from the previous (Lesson 10)
 ### mini-project.
-words_file = "../text_learning/your_word_data.pkl" 
-authors_file = "../text_learning/your_email_authors.pkl"
-word_data = joblib.load( open(words_file, "r"))
-authors = joblib.load( open(authors_file, "r") )
+words_file = "./word_data.pkl"
+authors_file = "./email_authors.pkl"
+word_data = joblib.load( open(words_file, "rb"))
+authors = joblib.load( open(authors_file, "rb") )
 
 
 
@@ -31,12 +32,15 @@ features_test  = vectorizer.transform(features_test).toarray()
 ### a classic way to overfit is to use a small number
 ### of data points and a large number of features;
 ### train on only 150 events to put ourselves in this regime
-features_train = features_train[:150].toarray()
+features_train = features_train[:150]
 labels_train   = labels_train[:150]
 
 
 
 ### your code goes here
-
-
-
+clf = DecisionTreeClassifier()
+clf.fit(features_train, labels_train)
+pred = clf.predict(features_test)
+print(f'accuracy: {accuracy_score(pred, labels_test)}')
+for i in clf.feature_importances_:
+    print(i)
